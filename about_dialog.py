@@ -17,21 +17,21 @@ class AboutDialog(Tk.Toplevel):
         self.minsize(309, 446)
         self.resizable(False, False)
 
-        self.title("About Stream Temps")
+        self.title("About " + NAME)
 
         wrapper_frame = Tk.Frame(self)
 
-        # Stream Temps Logo
-        stream_temps_logo = ImageTk.PhotoImage(Image.open(IMAGES_DIR + "/logo_120x120.png"))
-        stream_temps_logo_label = Tk.Label(wrapper_frame)
-        stream_temps_logo_label.image = stream_temps_logo
-        stream_temps_logo_label.configure(image=stream_temps_logo)
-        stream_temps_logo_label.grid(row=0, column=0, columnspan=2, pady=15)
+        # Logo
+        logo = ImageTk.PhotoImage(Image.open(IMAGES_DIR + "/logo_120x120.png"))
+        logo_label = Tk.Label(wrapper_frame)
+        logo_label.image = logo
+        logo_label.configure(image=logo)
+        logo_label.grid(row=0, column=0, columnspan=2, pady=15)
       
-        # Stream Temps Name
-        stream_temps_name_font_style = TkFont.Font(family="TkDefaultFont", size=12)
-        stream_temps_name_label = Tk.Label(wrapper_frame, text="Stream Temps", font=stream_temps_name_font_style)
-        stream_temps_name_label.grid(row=1, column=0, columnspan=2)
+        # Name
+        name_font_style = TkFont.Font(family="TkDefaultFont", size=12)
+        name_label = Tk.Label(wrapper_frame, text=NAME, font=name_font_style)
+        name_label.grid(row=1, column=0, columnspan=2)
 
         # Version
         version_label = Tk.Label(wrapper_frame, text="Version: " + VERSION)
@@ -105,16 +105,16 @@ class AboutDialog(Tk.Toplevel):
 
         github_link_label = Tk.Label(wrapper_frame, text="https://github.com/k0nze", fg="blue", cursor="hand2")
         github_link_label.grid(row=10, column=1, columnspan=1, sticky=Tk.W)
-        github_link_label.bind("<Button-1>", lambda e: self.open_browser("https://github.com/k0nze/stream_temps"))
+        github_link_label.bind("<Button-1>", lambda e: self.open_browser("https://github.com/k0nze/" + TODO))
 
         # Close button
         close_button = Tk.Button(wrapper_frame, text="Close", command=self.on_close).grid(row=11, column=0, columnspan=2, pady=10)
 
         wrapper_frame.grid(row=0, column=0, padx=10)
 
-        self.update()
-        print(self.winfo_height())
-        print(self.winfo_width())
+        #self.update()
+        #print(self.winfo_height())
+        #print(self.winfo_width())
 
     def open_browser(self, url):
         webbrowser.open_new(url)

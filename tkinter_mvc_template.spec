@@ -3,13 +3,10 @@
 block_cipher = None
 
 
-a = Analysis(['stream_temps.py'],
-             pathex=['/Users/konze/Programming/stream_temps'],
+a = Analysis(['tkinter_mvc_template.py'],
+             pathex=['/Users/konze/Programming/tkinter_mvc_template'],
              binaries=[],
-             datas=[('./images/logo_120x120.png', 'images'),
-		('./images/k_logo_30x30.png', 'images'),
-		('./images/offline_icon.png', 'images'),
-		('./images/online_icon.png', 'images')],
+             datas=[('./images/logo_120x120.png', 'images'), ('./images/k_logo_30x30.png', 'images')],
              hiddenimports=['PIL._tkinter_finder'],
              hookspath=[],
              runtime_hooks=[],
@@ -19,17 +16,13 @@ a = Analysis(['stream_temps.py'],
              cipher=block_cipher,
              noarchive=False)
 
-a.datas += Tree('./root_dir', prefix='root_dir')
-a.datas += Tree('./templates', prefix='templates')
-#a.datas += Tree('./images', prefix='images')
-
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
           [],
           exclude_binaries=True,
-          name='stream_temps',
+          name='tkinter_mvc_template',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
@@ -42,5 +35,5 @@ coll = COLLECT(exe,
                strip=False,
                upx=True,
                upx_exclude=[],
-               name='stream_temps')
+               name='tkinter_mvc_template')
 
