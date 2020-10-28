@@ -1,5 +1,5 @@
 VERSION=0.1
-FILE_NAME=tkinter_mvc_template
+FILE_NAME=rpi_soundboard
 TARGET=$(FILE_NAME)_v$(VERSION)
 
 all: zip

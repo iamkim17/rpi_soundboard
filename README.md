@@ -1,4 +1,4 @@
-# TKinter MVC Template
+# Raspberry Pi Soundboard 
 
 ## Credits
 ![K0nze Logo](./images/k_logo_30x30.png "Logo") Created by Konstantin (Konze) Lübeck

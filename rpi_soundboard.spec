@@ -6,7 +6,7 @@ block_cipher = None
 
 
 a = Analysis([FILE_NAME + '.py'],
-             pathex=['/Users/konze/Programming/tkinter_mvc_template'],
+             pathex=['/Users/konze/Programming/rpi_soundboard'],
              binaries=[],
              datas=[('./images/logo_120x120.png', 'images'), ('./images/k_logo_30x30.png', 'images')],
              hiddenimports=['PIL._tkinter_finder'],
