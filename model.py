@@ -54,7 +54,20 @@ class Model():
             try:
                 with open(self.json_path.resolve(), 'w') as json_file:
 
-                    self.data = { "template": "template" }
+                    self.data = { 
+                            "sounds": [
+                                    {
+                                        "number": 1,
+                                        "pin": self.get_gpio_pin_default_name(),
+                                        "file_path": "None"
+                                    },
+                                    {
+                                        "number": 2,
+                                        "pin": self.get_gpio_pin_default_name(),
+                                        "file_path": "None"
+                                    }
+                                ]
+                            } 
                 
                     json.dump(self.data, json_file, sort_keys=True, indent=4)
 
@@ -75,6 +88,40 @@ class Model():
     def __notify_observers(self):
         for observer in self.observers:
             observer.notify()
+
+    def __save_json(self):
+        try:
+            with open(self.json_path.resolve(), 'w') as json_file:
+                json.dump(self.data, json_file, sort_keys=True, indent=4)
+
+        except Exception as e:
+            raise JsonFileWriteException
+
+    def get_pin_for_sound(self, sound_number):
+        for sound in self.data['sounds']:
+            if sound['number'] == sound_number:
+                return sound['pin']
+
+    def set_pin_for_sound(self, sound_number, pin):
+        for sound in self.data['sounds']:
+            if sound['number'] == sound_number:
+                sound['pin'] = pin
+
+        self.__save_json()
+        #self.__notify_observers()
+
+    def get_file_path_for_sound(self, sound_number):
+        for sound in self.data['sounds']:
+            if sound['number'] == sound_number:
+                return sound['file_path']
+
+    def set_file_path_for_sound(self, sound_number, file_path):
+        for sound in self.data['sounds']:
+            if sound['number'] == sound_number:
+                sound['file_path'] = file_path
+
+        self.__save_json()
+        self.__notify_observers()
 
     def get_gpio_pin_default_name(self):
         return "Not Assigned"
@@ -109,3 +156,5 @@ class Model():
                 "38 (GPIO 20/PCM_DIN)",
                 "40 (GPIO 21/PCM_DOUT)"
                 ]
+
+    # TODO filted pin list
