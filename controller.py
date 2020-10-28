@@ -13,7 +13,7 @@ from model import Model
 class Controller:
     def __init__(self):
         user_dir = Path.home()
-        data_path = Path.joinpath(user_dir, '.tkinter_mvc_template')
+        data_path = Path.joinpath(user_dir, '.' + FILE_NAME)
 
         self.model = Model(data_path)
 

@@ -1,5 +1,6 @@
 VERSION=0.1
-TARGET=tkinter_mvc_template_v$(VERSION)
+FILE_NAME=tkinter_mvc_template
+TARGET=$(FILE_NAME)_v$(VERSION)
 
 all: zip
 	
@@ -8,7 +9,7 @@ zip: $(TARGET).zip
 $(TARGET).zip: *.py images/* requirements.txt run.sh 
 	python3 -m pip install -r requirements.txt
 	python3 -m pip install pyinstaller
-	python3 -m PyInstaller --noconfirm tkinter_mvc_template.spec
+	python3 -m PyInstaller --noconfirm $(FILE_NAME).spec
 	cp -r dist $(TARGET) 
 	cp run.sh $(TARGET) 
 	zip -r $(TARGET).zip $(TARGET) 
@@ -18,5 +19,5 @@ $(TARGET).zip: *.py images/* requirements.txt run.sh
 	-rm -rf build
 	-rm -rf dist
 	-rm -rf __pycache__
-	-rm $(TARGET) 
+	-rm -rf $(TARGET) 
 	-rm $(TARGET).zip

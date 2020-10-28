@@ -1,9 +1,11 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+from consts import *
+
 block_cipher = None
 
 
-a = Analysis(['tkinter_mvc_template.py'],
+a = Analysis([FILE_NAME + '.py'],
              pathex=['/Users/konze/Programming/tkinter_mvc_template'],
              binaries=[],
              datas=[('./images/logo_120x120.png', 'images'), ('./images/k_logo_30x30.png', 'images')],
@@ -22,7 +24,7 @@ exe = EXE(pyz,
           a.scripts,
           [],
           exclude_binaries=True,
-          name='tkinter_mvc_template',
+          name=FILE_NAME,
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
@@ -35,5 +37,5 @@ coll = COLLECT(exe,
                strip=False,
                upx=True,
                upx_exclude=[],
-               name='tkinter_mvc_template')
+               name=FILE_NAME)
 

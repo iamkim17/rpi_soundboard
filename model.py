@@ -34,9 +34,9 @@ class Model():
 
         self.data_path = data_path
 
-        # check if ~/. exists
+        # check if ~/.FILE_NAME exists
         if not self.data_path.is_dir(): 
-            # try to create ~/. dir
+            # try to create ~/.FILE_NAME dir
             try:
                 os.mkdir(self.data_path)
             except Exception as e:
