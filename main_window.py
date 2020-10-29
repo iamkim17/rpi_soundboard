@@ -57,18 +57,18 @@ class MainWindow(Tk.Frame):
 
             test=sound_number
 
-            sound_pin_option_menu = Tk.OptionMenu(self, self.sound_pin_name_vars[sound_number-1], *model.get_gpio_pin_names(), command=lambda pin_name=sound_number, sound_number=test: self.on_choose_sound_pin(pin_name, sound_number)).grid(sticky=Tk.W, row=row_counter+2, column=1)
+            sound_pin_option_menu = Tk.OptionMenu(self, self.sound_pin_name_vars[sound_number-1], *model.get_unassigned_gpio_pin_names(), command=lambda pin_name=sound_number, sound_number=test: self.on_choose_sound_pin(pin_name, sound_number)).grid(sticky=Tk.W, row=row_counter+2, column=1)
 
             sound_play_button = Tk.Button(self, text="Play", command=lambda sound_number=sound_number: self.on_play_sound(sound_number)).grid(sticky=Tk.W+Tk.E, row=row_counter+2, column=2)
 
             row_counter = row_counter + 3
 
-
-
     def notify(self):
         for sound_number in range(1, self.model.get_num_sounds()+1):
             self.sound_file_path_vars[sound_number-1].set(self.model.get_file_path_for_sound(sound_number))
             self.sound_pin_name_vars[sound_number-1].set(self.model.get_pin_for_sound(sound_number))
+
+            # TODO update drop down lists
 
     def on_about(self):
         about_dialog = AboutDialog(self.root)

@@ -136,6 +136,7 @@ class Model():
                 sound['pin'] = pin
 
         self.__save_json()
+        self.__notify_observers()
 
     def get_file_path_for_sound(self, sound_number):
         for sound in self.data['sounds']:
@@ -184,4 +185,16 @@ class Model():
                 "40 (GPIO 21/PCM_DOUT)"
                 ]
 
-    # TODO filted pin list
+    def get_unassigned_gpio_pin_names(self):
+        gpio_pin_names = self.get_gpio_pin_names()
+        assigned_gpio_pin_names = []
+
+        for sound in self.data['sounds']:
+            assigned_gpio_pin_names.append(sound['pin'])
+
+        filtered_gpio_pin_names = [x for x in gpio_pin_names if x not in assigned_gpio_pin_names]
+
+        if self.get_gpio_pin_names() not in filtered_gpio_pin_names:
+            return self.get_gpio_pin_names() + filtered_gpio_pin_names
+
+        return filtered_gpio_pin_names
