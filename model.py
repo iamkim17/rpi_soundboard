@@ -65,6 +65,31 @@ class Model():
                                         "number": 2,
                                         "pin": self.get_gpio_pin_default_name(),
                                         "file_path": "None"
+                                    },
+                                    {
+                                        "number": 3,
+                                        "pin": self.get_gpio_pin_default_name(),
+                                        "file_path": "None"
+                                    },
+                                    {
+                                        "number": 4,
+                                        "pin": self.get_gpio_pin_default_name(),
+                                        "file_path": "None"
+                                    },
+                                    {
+                                        "number": 5,
+                                        "pin": self.get_gpio_pin_default_name(),
+                                        "file_path": "None"
+                                    },
+                                    {
+                                        "number": 6,
+                                        "pin": self.get_gpio_pin_default_name(),
+                                        "file_path": "None"
+                                    },
+                                    {
+                                        "number": 7,
+                                        "pin": self.get_gpio_pin_default_name(),
+                                        "file_path": "None"
                                     }
                                 ]
                             } 
@@ -97,6 +122,9 @@ class Model():
         except Exception as e:
             raise JsonFileWriteException
 
+    def get_num_sounds(self):
+        return len(self.data['sounds'])
+
     def get_pin_for_sound(self, sound_number):
         for sound in self.data['sounds']:
             if sound['number'] == sound_number:
@@ -108,7 +136,6 @@ class Model():
                 sound['pin'] = pin
 
         self.__save_json()
-        #self.__notify_observers()
 
     def get_file_path_for_sound(self, sound_number):
         for sound in self.data['sounds']:
