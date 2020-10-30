@@ -63,27 +63,27 @@ class MainWindow(Tk.Frame):
 
             self.sound_pin_name_vars[sound_number-1].set(self.model.get_pin_for_sound(sound_number))
 
-            test=sound_number
+            sound_number_copy=sound_number
 
-            sound_pin_option_menu = Tk.OptionMenu(self, self.sound_pin_name_vars[sound_number-1], *model.get_unassigned_gpio_pin_names(), command=lambda pin_name=sound_number, sound_number=test: self.on_choose_sound_pin(pin_name, sound_number)).grid(sticky=Tk.W, row=row_counter+2, column=1)
+            sound_pin_option_menu = Tk.OptionMenu(self, self.sound_pin_name_vars[sound_number-1], *model.get_unassigned_gpio_pin_names(), command=lambda pin_name=sound_number, sound_number=sound_number_copy: self.on_choose_sound_pin(pin_name, sound_number)).grid(sticky=Tk.W, row=row_counter+2, column=1)
 
             # volume slider 
             sound_volume_label = Tk.Label(self, text="Vol.", justify=Tk.LEFT, anchor="w").grid(sticky=Tk.W+Tk.S, row=row_counter+3, column=0)
             # TODO update model
             sound_volume_slider_var = Tk.IntVar()
-            sound_volume_slider_var.set(80)
+            sound_volume_slider_var.set(100*self.model.get_volume_for_sound(sound_number))
 
-            sound_volume_slider = Tk.Scale(self, variable=sound_volume_slider_var, from_=0, to_=100, orient=Tk.HORIZONTAL).grid(sticky=Tk.W+Tk.E, row=row_counter+3, column=1)
+            sound_volume_slider = Tk.Scale(self, variable=sound_volume_slider_var, command=lambda volume=sound_number, sound_number=sound_number_copy: self.on_volume_change(volume, sound_number), from_=0, to_=100, orient=Tk.HORIZONTAL).grid(sticky=Tk.W+Tk.E, row=row_counter+3, column=1)
 
             # play button
             sound_play_button = Tk.Button(self, text="Play", command=lambda sound_number=sound_number: self.on_play_sound(sound_number)).grid(sticky=Tk.W+Tk.E+Tk.S, row=row_counter+3, column=2)
         
-
-            # TODO dont display last separator
+            # dont display last separator
             if sound_number != self.model.get_num_sounds():
                 sound_separator = ttk.Separator(self, orient=Tk.HORIZONTAL).grid(sticky=Tk.W+Tk.E, row=row_counter+4, column=0, columnspan=3, pady=5)
 
             row_counter = row_counter + 5
+
 
     def notify(self):
         for sound_number in range(1, self.model.get_num_sounds()+1):
@@ -101,9 +101,6 @@ class MainWindow(Tk.Frame):
         about_dialog.grab_set()
         about_dialog.transient(self.root)
 
-    def on_play_sound(self, sound_number):
-        print("play sound ", sound_number)
-
     def on_choose_sound_file(self, sound_number):
         file_path = filedialog.askopenfilename(initialdir="~/Music", title="Select Sound File")
 
@@ -112,5 +109,11 @@ class MainWindow(Tk.Frame):
 
     def on_choose_sound_pin(self, pin_name, sound_number):
         self.model.set_pin_for_sound(sound_number, pin_name)
+
+    def on_volume_change(self, volume, sound_number):
+        self.model.set_volume_for_sound(sound_number, float(volume)/100)
+
+    def on_play_sound(self, sound_number):
+        print("play sound ", sound_number)
 
 

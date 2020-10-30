@@ -59,37 +59,44 @@ class Model():
                                     {
                                         "number": 1,
                                         "pin": self.get_gpio_pin_default_name(),
-                                        "file_path": "None"
+                                        "file_path": None,
+                                        "volume": 0.8
                                     },
                                     {
                                         "number": 2,
                                         "pin": self.get_gpio_pin_default_name(),
-                                        "file_path": "None"
+                                        "file_path": None,
+                                        "volume": 0.8
                                     },
                                     {
                                         "number": 3,
                                         "pin": self.get_gpio_pin_default_name(),
-                                        "file_path": "None"
+                                        "file_path": None,
+                                        "volume": 0.8
                                     },
                                     {
                                         "number": 4,
                                         "pin": self.get_gpio_pin_default_name(),
-                                        "file_path": "None"
+                                        "file_path": None,
+                                        "volume": 0.8
                                     },
                                     {
                                         "number": 5,
                                         "pin": self.get_gpio_pin_default_name(),
-                                        "file_path": "None"
+                                        "file_path": None,
+                                        "volume": 0.8
                                     },
                                     {
                                         "number": 6,
                                         "pin": self.get_gpio_pin_default_name(),
-                                        "file_path": "None"
+                                        "file_path": None,
+                                        "volume": 0.8
                                     },
                                     {
                                         "number": 7,
                                         "pin": self.get_gpio_pin_default_name(),
-                                        "file_path": "None"
+                                        "file_path": None,
+                                        "volume": 0.8
                                     }
                                 ]
                             } 
@@ -141,6 +148,8 @@ class Model():
     def get_file_path_for_sound(self, sound_number):
         for sound in self.data['sounds']:
             if sound['number'] == sound_number:
+                if sound['file_path'] is None:
+                    return ""
                 return sound['file_path']
 
     def set_file_path_for_sound(self, sound_number, file_path):
@@ -198,3 +207,17 @@ class Model():
             return self.get_gpio_pin_names() + filtered_gpio_pin_names
 
         return filtered_gpio_pin_names
+
+
+    def get_volume_for_sound(self, sound_number):
+        for sound in self.data['sounds']:
+            if sound['number'] == sound_number:
+                return sound['volume']
+
+    def set_volume_for_sound(self, sound_number, volume):
+        for sound in self.data['sounds']:
+            if sound['number'] == sound_number:
+                sound['volume'] = volume
+
+        self.__save_json()
+
