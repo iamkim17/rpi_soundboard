@@ -42,6 +42,7 @@ class MainWindow(Tk.Frame):
 
         self.sound_file_path_vars = [Tk.StringVar() for i in range(self.model.get_num_sounds())] 
         self.sound_pin_name_vars = [Tk.StringVar() for i in range(self.model.get_num_sounds())]
+        self.sound_pin_option_menus = []
 
         row_counter = 0
 
@@ -65,11 +66,12 @@ class MainWindow(Tk.Frame):
 
             sound_number_copy=sound_number
 
-            sound_pin_option_menu = Tk.OptionMenu(self, self.sound_pin_name_vars[sound_number-1], *model.get_unassigned_gpio_pin_names(), command=lambda pin_name=sound_number, sound_number=sound_number_copy: self.on_choose_sound_pin(pin_name, sound_number)).grid(sticky=Tk.W, row=row_counter+2, column=1)
+            self.sound_pin_option_menus.append(Tk.OptionMenu(self, self.sound_pin_name_vars[sound_number-1], *model.get_unassigned_gpio_pin_names(), command=lambda pin_name=sound_number, sound_number=sound_number_copy: self.on_choose_sound_pin(pin_name, sound_number)))
+            self.sound_pin_option_menus[sound_number-1]
+            self.sound_pin_option_menus[sound_number-1].grid(sticky=Tk.W, row=row_counter+2, column=1)
 
             # volume slider 
             sound_volume_label = Tk.Label(self, text="Vol.", justify=Tk.LEFT, anchor="w").grid(sticky=Tk.W+Tk.S, row=row_counter+3, column=0)
-            # TODO update model
             sound_volume_slider_var = Tk.IntVar()
             sound_volume_slider_var.set(100*self.model.get_volume_for_sound(sound_number))
 
@@ -90,7 +92,13 @@ class MainWindow(Tk.Frame):
             self.sound_file_path_vars[sound_number-1].set(self.model.get_file_path_for_sound(sound_number))
             self.sound_pin_name_vars[sound_number-1].set(self.model.get_pin_for_sound(sound_number))
 
-            # TODO update drop down lists
+            # delete all entries
+            self.sound_pin_option_menus[sound_number-1]['menu'].delete(0, "end")
+
+            for pin_name in self.model.get_unassigned_gpio_pin_names():
+                # TODO call back to on choose sound pin vanishes
+                self.sound_pin_option_menus[sound_number-1]['menu'].add_command(label=pin_name, command=lambda index=sound_number, value=pin_name: self.sound_pin_name_vars[index-1].set(value))
+
 
     def on_about(self):
         about_dialog = AboutDialog(self.root)

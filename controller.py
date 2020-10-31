@@ -1,8 +1,11 @@
 try:
     import Tkinter as Tk
+    from Tkinter import ttk
 except ModuleNotFoundError:
     import tkinter as Tk
+    from tkinter import ttk
 
+import ttkthemes
 from pathlib import Path
 from consts import *
 
@@ -20,7 +23,11 @@ class Controller:
 
         self.model = Model(data_path)
 
+        # TODO check why not working
         self.root = Tk.Tk()
+        self.root.style = ttkthemes.ThemedStyle()
+        self.root.style.theme_use('black')
+
         self.view = View(self.model, self)
 
     def run(self):
