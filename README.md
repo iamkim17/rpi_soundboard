@@ -1,5 +1,12 @@
 # Raspberry Pi Soundboard 
 
+## Setup
+
+install `libSDL2-mixer`:
+```bash
+sudo apt install libsdl2-mixer-2.0.0
+```
+
 ## Credits
 ![K0nze Logo](./images/k_logo_30x30.png "Logo") Created by Konstantin (Konze) Lübeck
 

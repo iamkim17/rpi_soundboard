@@ -6,7 +6,7 @@ all: zip
 	
 zip: $(TARGET).zip
 
-$(TARGET).zip: *.py images/* requirements.txt run.sh 
+$(TARGET).zip: *.py images/* requirements.txt run.sh $(FILE_NAME).spec
 	python3 -m pip install -r requirements.txt
 	python3 -m pip install pyinstaller
 	python3 -m PyInstaller --noconfirm $(FILE_NAME).spec
