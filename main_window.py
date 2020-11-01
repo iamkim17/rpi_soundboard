@@ -14,10 +14,12 @@ from about_dialog import AboutDialog
 from frame_with_scroll_bar import FrameWithScrollBar
 
 class MainWindow(Tk.Frame):
-    def __init__(self, model, root):
+    def __init__(self, model, root, controller):
 
         self.model = model
         self.model.register_observer(self)
+
+        self.controller = controller
 
         self.root = root
         self.root.minsize(395, 372)
@@ -120,6 +122,4 @@ class MainWindow(Tk.Frame):
         self.model.set_volume_for_sound(sound_number, float(volume)/100)
 
     def on_play_sound(self, sound_number):
-        print("play sound ", sound_number)
-
-
+        self.controller.play_sound(sound_number)

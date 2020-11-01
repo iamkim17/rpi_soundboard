@@ -14,4 +14,4 @@ class View:
         self.controller = controller 
         self.model = model
 
-        self.main_window = MainWindow(self.model, self.controller.root)
+        self.main_window = MainWindow(self.model, self.controller.root, self.controller)

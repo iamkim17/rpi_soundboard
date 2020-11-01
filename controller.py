@@ -10,6 +10,7 @@ from view import View
 from model import Model
 
 from is_raspberry_pi import is_raspberry_pi
+from sound import Sound
 
 class Controller:
     def __init__(self):
@@ -20,6 +21,8 @@ class Controller:
 
         self.model = Model(data_path)
 
+        self.sound = Sound(self.model)
+
         self.root = Tk.Tk()
         self.view = View(self.model, self)
 
@@ -27,6 +30,9 @@ class Controller:
         self.root.title(NAME)
         self.root.deiconify()
         self.root.mainloop()
+
+    def play_sound(self, sound_number):
+        self.sound.play(sound_number)
 
     def quit(self):
         self.root.quit()
