@@ -21,7 +21,6 @@ class MainWindow(Tk.Frame):
 
         self.root = root
         self.root.minsize(395, 372)
-        self.root.maxsize(600, 908)
 
         Tk.Frame.__init__(self, self.root)
 
@@ -90,9 +89,8 @@ class MainWindow(Tk.Frame):
 
             row_counter = row_counter + 5
 
-        
-        #self.root.update()   
-        #print(self.root.winfo_width(), self.root.winfo_height())
+        sounds_frame.frame.update()
+        self.root.maxsize(600, sounds_frame.frame.winfo_height()+31)
 
 
     def notify(self):
