@@ -20,7 +20,7 @@ class MainWindow(Tk.Frame):
         self.model.register_observer(self)
 
         self.root = root
-        self.root.minsize(350, 500)
+        self.root.minsize(395, 266)
 
         Tk.Frame.__init__(self, self.root)
 
@@ -40,19 +40,67 @@ class MainWindow(Tk.Frame):
         self.sound_pin_name_vars = [Tk.StringVar() for i in range(self.model.get_num_sounds())]
 
         self.root.columnconfigure(0, weight=1)
-        self.root.rowconfigure(1, weight=1)
+        self.root.rowconfigure(0, weight=1)
 
-        sounds_frame = ScrollableFrame(self.root)
-        sounds_frame.grid(row=0, column=0, sticky=Tk.E+Tk.W+Tk.N+Tk.S)
+        #sounds_frame = ScrollableFrame(self.root)
+        #sounds_frame.grid(row=0, column=0, sticky=Tk.E+Tk.W+Tk.N+Tk.S)
 
-        sounds_frame.columnconfigure(0, weight=0)
-        sounds_frame.columnconfigure(1, weight=1)
-        sounds_frame.columnconfigure(2, weight=0)
+        #sounds_frame.scrollable_frame.columnconfigure(0, weight=0)
+        #sounds_frame.scrollable_frame.columnconfigure(1, weight=1)
+        #sounds_frame.scrollable_frame.columnconfigure(2, weight=0)
 
         self.sound_file_path_vars = [Tk.StringVar() for i in range(self.model.get_num_sounds())] 
         self.sound_pin_name_vars = [Tk.StringVar() for i in range(self.model.get_num_sounds())]
         self.sound_pin_option_menus = []
 
+        f = Tk.Frame(self.root) 
+        f.grid(row=0, column=0, sticky=Tk.N+Tk.W+Tk.E+Tk.S)
+
+        canvas = Tk.Canvas(f, bg="red")
+        scrollbar = ttk.Scrollbar(f, orient="vertical", command=canvas.yview)
+
+        scrollable_frame = ttk.Frame(canvas)
+
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(
+                scrollregion=canvas.bbox("all")
+            )
+        )
+
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+
+        for i in range(50):
+            Tk.Label(scrollable_frame, text="test").grid(row=i, column=0)
+
+        """
+        canvas = Tk.Canvas(self.root, bg="red")
+        scrollbar = ttk.Scrollbar(self, orient="vertical", command=canvas.yview)
+        test_frame = Tk.Frame(canvas)
+
+        test_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(
+                scrollregion=canvas.bbox("all")
+            )
+        )
+
+        canvas.create_window((0, 0), window=test_frame, anchor="nw")
+
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+
+        for i in range(20):
+            Tk.Label(sf.scrollable_frame, text="test" + str(i)).grid(row=i, column=0)
+        """
+        """
         row_counter = 0
 
         for sound_number in range(1,self.model.get_num_sounds()+1):
@@ -91,6 +139,7 @@ class MainWindow(Tk.Frame):
 
             row_counter = row_counter + 5
 
+        """
 
         self.root.update()   
         print(self.root.winfo_width(), self.root.winfo_height())
