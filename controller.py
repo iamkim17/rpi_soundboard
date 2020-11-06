@@ -6,6 +6,12 @@ except ModuleNotFoundError:
 import threading
 import time
 
+try:
+    import RPi.GPIO as GPIO 
+except:
+    pass
+
+
 from pathlib import Path
 from consts import *
 
@@ -45,9 +51,28 @@ class Controller:
         self.sound.play(sound_number)
 
     def start_gpio_polling(self):
-        while True:
-            print("blub")
-            time.sleep(1)
+        if self.is_raspberry_pi:
+            GPIO.setwarnings(False)
+            GPIO.setmode(GPIO.BCM)
+
+            pressed = {}
+
+            # setup pins
+            for bcm_number in self.model.bcm_pin_numbers:
+                GPIO.setup(bcm_number, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+                pressed[bcm_number] = False
+
+            # poll pins
+            while True:
+                for assigned_bcm_number in self.model.get_assigned_bcm_numbers():
+                    if GPIO.input(assigned_bcm_number) == GPIO.HIGH:
+                        pressed[assigned_bcm_number] = True
+                        time.sleep(0.1)
+                        print(assigned_bcm_number)
+                        while GPIO.input(assigned_bcm_number) == GPIO.HIGH:
+                            pass
+
+                time.sleep(0.01)
 
     def quit(self):
         self.root.quit()
