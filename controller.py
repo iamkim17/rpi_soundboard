@@ -3,6 +3,9 @@ try:
 except ModuleNotFoundError:
     import tkinter as Tk
 
+import threading
+import time
+
 from pathlib import Path
 from consts import *
 
@@ -27,12 +30,24 @@ class Controller:
         self.view = View(self.model, self)
 
     def run(self):
+        gpio_polling_thread = threading.Thread(target=self.start_gpio_polling)
+
+        # set as deamon such that the thread is killed when the main thread is killed
+        gpio_polling_thread.setDaemon(True) 
+        gpio_polling_thread.start()
+
         self.root.title(NAME)
         self.root.deiconify()
         self.root.mainloop()
 
+
     def play_sound(self, sound_number):
         self.sound.play(sound_number)
+
+    def start_gpio_polling(self):
+        while True:
+            print("blub")
+            time.sleep(1)
 
     def quit(self):
         self.root.quit()
