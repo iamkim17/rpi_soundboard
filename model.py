@@ -165,9 +165,6 @@ class Model():
     
     def get_gpio_pin_names(self):
         return [self.get_gpio_pin_default_name(),
-                "3 (GPIO 2/SDA)", 
-                "5 (GPIO 3/SCL)", 
-                "7 (GPIO 4/GPCLK0)",
                 "8 (GPIO 14/TXD)",
                 "10 (GPIO 15/RXD)",
                 "11 (GPIO 17)",
