@@ -250,6 +250,11 @@ class Model():
 
         return assigned_pin_bcm_numbers
 
+    def get_sound_number_for_bcm_number(self, bcm_number):
+        for sound in self.data['sounds']:
+            if self.gpio_pin_name_to_bcm_number_map[sound['pin']] == bcm_number:
+                return sound['number'] 
+
     def get_volume_for_sound(self, sound_number):
         for sound in self.data['sounds']:
             if sound['number'] == sound_number:

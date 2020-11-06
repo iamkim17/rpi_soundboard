@@ -68,7 +68,7 @@ class Controller:
                     if GPIO.input(assigned_bcm_number) == GPIO.HIGH:
                         pressed[assigned_bcm_number] = True
                         time.sleep(0.1)
-                        print(assigned_bcm_number)
+                        self.sound.play(self.model.get_sound_number_for_bcm_number(assigned_bcm_number))
                         while GPIO.input(assigned_bcm_number) == GPIO.HIGH:
                             pass
 
