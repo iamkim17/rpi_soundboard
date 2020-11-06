@@ -141,6 +141,8 @@ class Model():
                 "40 (GPIO 21/PCM_DOUT)"
                 ]
 
+        self.bcm_pin_numbers = [14, 15, 17, 18, 27, 22, 23, 24, 10, 9, 11, 8, 7, 0, 1, 5, 6, 12, 13, 19, 16, 26, 20, 21]
+
         self.gpio_pin_name_to_bcm_number_map = {
                 self.get_gpio_pin_default_name(): -1,
                 "8 (GPIO 14/TXD)": 14,
@@ -222,7 +224,7 @@ class Model():
     def get_gpio_pin_names(self):
         return self.gpio_pin_names 
 
-    def gpio_pin_name_to_bcm_number(self, pin_name):
+    def get_bcm_number_for_gpio_pin_name(self, pin_name):
         return self.gpio_pin_name_to_bcm_number_map(pin_name)
 
     def get_unassigned_gpio_pin_names(self):
@@ -239,6 +241,14 @@ class Model():
 
         return filtered_gpio_pin_names
 
+    def get_assigned_bcm_numbers(self):
+        assigned_pin_bcm_numbers = []
+
+        for sound in self.data['sounds']:
+            if self.gpio_pin_name_to_bcm_number_map[sound['pin']] != -1:
+                assigned_pin_bcm_numbers.append(self.gpio_pin_name_to_bcm_number_map[sound['pin']])
+
+        return assigned_pin_bcm_numbers
 
     def get_volume_for_sound(self, sound_number):
         for sound in self.data['sounds']:
