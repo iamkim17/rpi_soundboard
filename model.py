@@ -113,6 +113,62 @@ class Model():
 
         self.observers = []
 
+        self.gpio_pin_names = [
+                self.get_gpio_pin_default_name(),
+                "8 (GPIO 14/TXD)",
+                "10 (GPIO 15/RXD)",
+                "11 (GPIO 17)",
+                "12 (GPIO 18/PCM_CLK)",
+                "13 (GPIO 27)",
+                "15 (GPIO 22)",
+                "16 (GPIO 23)",
+                "18 (GPIO 24)",
+                "19 (GPIO 10/MOSI)",
+                "21 (GPIO 9/MISO)",
+                "23 (GPIO 11/SCLK)",
+                "24 (GPIO 8/CE0)",
+                "26 (GPIO 7/CE1)",
+                "27 (GPIO 0/ID_SD)",
+                "28 (GPIO 1/ID_SC)",
+                "29 (GPIO 5)",
+                "31 (GPIO 6)",
+                "32 (GPIO 12/PWM0)",
+                "33 (GPIO 13/PWM1)",
+                "35 (GPIO 19/PCM_FS)",
+                "36 (GPIO 16)",
+                "37 (GPIO 26)",
+                "38 (GPIO 20/PCM_DIN)",
+                "40 (GPIO 21/PCM_DOUT)"
+                ]
+
+        self.gpio_pin_name_to_bcm_number_map = {
+                self.get_gpio_pin_default_name(): -1,
+                "8 (GPIO 14/TXD)": 14,
+                "10 (GPIO 15/RXD)": 15,
+                "11 (GPIO 17)": 17,
+                "12 (GPIO 18/PCM_CLK)": 18,
+                "13 (GPIO 27)": 27,
+                "15 (GPIO 22)": 22,
+                "16 (GPIO 23)": 23,
+                "18 (GPIO 24)": 24,
+                "19 (GPIO 10/MOSI)": 10,
+                "21 (GPIO 9/MISO)": 9,
+                "23 (GPIO 11/SCLK)": 11,
+                "24 (GPIO 8/CE0)": 8,
+                "26 (GPIO 7/CE1)": 7,
+                "27 (GPIO 0/ID_SD)": 0,
+                "28 (GPIO 1/ID_SC)": 1,
+                "29 (GPIO 5)": 5,
+                "31 (GPIO 6)": 6,
+                "32 (GPIO 12/PWM0)": 12,
+                "33 (GPIO 13/PWM1)": 13,
+                "35 (GPIO 19/PCM_FS)": 19,
+                "36 (GPIO 16)": 16,
+                "37 (GPIO 26)": 26,
+                "38 (GPIO 20/PCM_DIN)": 20,
+                "40 (GPIO 21/PCM_DOUT)": 21
+            }
+
 
     def register_observer(self, observer):
         self.observers.append(observer)
@@ -164,32 +220,10 @@ class Model():
         return "Not Assigned"
     
     def get_gpio_pin_names(self):
-        return [self.get_gpio_pin_default_name(),
-                "8 (GPIO 14/TXD)",
-                "10 (GPIO 15/RXD)",
-                "11 (GPIO 17)",
-                "12 (GPIO 18/PCM_CLK)",
-                "13 (GPIO 27)",
-                "15 (GPIO 22)",
-                "16 (GPIO 23)",
-                "18 (GPIO 24)",
-                "19 (GPIO 10/MOSI)",
-                "21 (GPIO 9/MISO)",
-                "23 (GPIO 11/SCLK)",
-                "24 (GPIO 8/CE0)",
-                "26 (GPIO 7/CE1)",
-                "27 (GPIO 0/ID_SD)",
-                "28 (GPIO 1/ID_SC)",
-                "29 (GPIO 5)",
-                "31 (GPIO 6)",
-                "32 (GPIO 12/PWM0)",
-                "33 (GPIO 13/PWM1)",
-                "35 (GPIO 19/PCM_FS)",
-                "36 (GPIO 16)",
-                "37 (GPIO 26)",
-                "38 (GPIO 20/PCM_DIN)",
-                "40 (GPIO 21/PCM_DOUT)"
-                ]
+        return self.gpio_pin_names 
+
+    def gpio_pin_name_to_bcm_number(self, pin_name):
+        return self.gpio_pin_name_to_bcm_number_map(pin_name)
 
     def get_unassigned_gpio_pin_names(self):
         gpio_pin_names = self.get_gpio_pin_names()
