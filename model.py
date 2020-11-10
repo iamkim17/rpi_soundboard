@@ -125,6 +125,7 @@ class Model():
                 "18 (GPIO 24)",
                 "19 (GPIO 10/MOSI)",
                 "21 (GPIO 9/MISO)",
+                "22 (GPIO 25)",
                 "23 (GPIO 11/SCLK)",
                 "24 (GPIO 8/CE0)",
                 "26 (GPIO 7/CE1)",
@@ -141,7 +142,7 @@ class Model():
                 "40 (GPIO 21/PCM_DOUT)"
                 ]
 
-        self.bcm_pin_numbers = [14, 15, 17, 18, 27, 22, 23, 24, 10, 9, 11, 8, 7, 0, 1, 5, 6, 12, 13, 19, 16, 26, 20, 21]
+        self.bcm_pin_numbers = [14, 15, 17, 18, 27, 22, 23, 24, 10, 9, 25, 11, 8, 7, 0, 1, 5, 6, 12, 13, 19, 16, 26, 20, 21]
 
         self.gpio_pin_name_to_bcm_number_map = {
                 self.get_gpio_pin_default_name(): -1,
@@ -155,6 +156,7 @@ class Model():
                 "18 (GPIO 24)": 24,
                 "19 (GPIO 10/MOSI)": 10,
                 "21 (GPIO 9/MISO)": 9,
+                "22 (GPIO 25)": 25,
                 "23 (GPIO 11/SCLK)": 11,
                 "24 (GPIO 8/CE0)": 8,
                 "26 (GPIO 7/CE1)": 7,
