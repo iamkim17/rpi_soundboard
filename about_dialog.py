@@ -14,7 +14,7 @@ class AboutDialog(Tk.Toplevel):
     def __init__(self, master):
         Tk.Toplevel.__init__(self, master)
 
-        self.minsize(309, 446)
+        self.minsize(305, 324)
         self.resizable(False, False)
 
         self.title("About " + NAME)
@@ -22,16 +22,16 @@ class AboutDialog(Tk.Toplevel):
         wrapper_frame = Tk.Frame(self)
 
         # Logo
-        logo = ImageTk.PhotoImage(Image.open(IMAGES_DIR + "/logo_120x120.png"))
-        logo_label = Tk.Label(wrapper_frame)
-        logo_label.image = logo
-        logo_label.configure(image=logo)
-        logo_label.grid(row=0, column=0, columnspan=2, pady=15)
+        #logo = ImageTk.PhotoImage(Image.open(IMAGES_DIR + "/logo_120x120.png"))
+        #logo_label = Tk.Label(wrapper_frame)
+        #logo_label.image = logo
+        #logo_label.configure(image=logo)
+        #logo_label.grid(row=0, column=0, columnspan=2, pady=15)
       
         # Name
         name_font_style = TkFont.Font(family="TkDefaultFont", size=12)
         name_label = Tk.Label(wrapper_frame, text=NAME, font=name_font_style)
-        name_label.grid(row=1, column=0, columnspan=2)
+        name_label.grid(row=1, column=0, columnspan=2, pady=15)
 
         # Version
         version_label = Tk.Label(wrapper_frame, text="Version: " + VERSION)
