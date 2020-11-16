@@ -1,5 +1,12 @@
 # Raspberry Pi Soundboard 
 
+## Setup Video
+<a href="https://youtu.be/nW5W9JBWX5Y">
+    <img src="./images/youtube_thumbnail.jpg" width="500"/>
+</a>
+
+[Youtube Video Link](https://youtu.be/nW5W9JBWX5Y)
+
 ## Requirements/Parts
 
  * Raspberry Pi 2, 3, or 4 with Raspberry Pi OS. You can find the setup video [here](https://www.youtube.com/watch?v=NAqBgF0swYo).
